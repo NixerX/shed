@@ -747,9 +747,9 @@ void MainComponent::openPianoRoll (MidiClip* c)
     for (auto* w : pianoRolls)
         if (w->getClip() == c) { w->toFront (true); return; }
 
-    pianoRolls.add (new PianoRollWindow (engine, *c, [this] (PianoRollWindow* w)
+    pianoRolls.add (new PianoRollWindow (engine, *c, [safe = SafePointer<MainComponent> (this)] (PianoRollWindow* w)
     {
-        MessageManager::callAsync ([safe = SafePointer<MainComponent> (this), w]
+        MessageManager::callAsync ([safe, w]
         {
             if (safe != nullptr) safe->pianoRolls.removeObject (w);
         });
@@ -771,9 +771,9 @@ void MainComponent::openPluginWindow (Track& t, int slot)
     for (auto* w : pluginWindows)
         if (&w->plugin == inst) { w->toFront (true); return; }
 
-    pluginWindows.add (new PluginWindow (*inst, t.name, [this] (PluginWindow* w)
+    pluginWindows.add (new PluginWindow (*inst, t.name, [safe = SafePointer<MainComponent> (this)] (PluginWindow* w)
     {
-        MessageManager::callAsync ([safe = SafePointer<MainComponent> (this), w]
+        MessageManager::callAsync ([safe, w]
         {
             if (safe != nullptr) safe->pluginWindows.removeObject (w);
         });

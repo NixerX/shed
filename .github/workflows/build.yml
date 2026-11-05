@@ -41,7 +41,7 @@ jobs:
 
       - name: Configure (Windows, static runtime)
         if: runner.os == 'Windows'
-        run: cmake -B build -G "Visual Studio 17 2022" -A x64 -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+        run: cmake -B build -A x64 -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
 
       - name: Configure (Linux)
         if: runner.os == 'Linux'

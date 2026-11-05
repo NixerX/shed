@@ -708,7 +708,7 @@ void MainComponent::showPluginManager()
 {
     auto deadMansPedal = appProps.getUserSettings()->getFile().getSiblingFile ("RecentlyCrashedPluginsList");
     auto* list = new PluginListComponent (engine.getFormatManager(), engine.getKnownPlugins(), deadMansPedal,
-                                          appProps.getUserSettings(), true);
+                                          appProps.getUserSettings(), false); // scan on the message thread: Kontakt & co. init UI frameworks on load
     list->setSize (720, 520);
     DialogWindow::LaunchOptions o;
     o.content.setOwned (list);
